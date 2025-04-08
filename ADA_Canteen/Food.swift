@@ -30,7 +30,7 @@ struct Food: View {
             // Price filter
             let priceFilter = Double(food.price) <= filterModel.maxPrice
             
-            // Category filter (if any categories selected)
+            // Category filter
             let categoryFilter = filterModel.selectedFoodCategories.isEmpty ||
             food.tags.contains { filterModel.selectedFoodCategories.contains($0) }
             
@@ -92,7 +92,6 @@ struct Food: View {
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
-                    //                        .padding(.leading, 14)
                     
                     ScrollView {
                         LazyVGrid(
@@ -220,7 +219,7 @@ struct FoodDetailView: View {
                                     .frame(width: 30, height: 30)
                             }
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)  // Rata kiri di parent-nya
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.top, 5)
                         .padding(.bottom, 9)
                         .padding(.leading, 18)
@@ -298,7 +297,7 @@ struct FoodDetailView: View {
     }
 }
 
-// FoodFilterView.swift
+// FoodFilterView
 struct FoodFilterView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var filterModel: FilterModel
@@ -336,7 +335,6 @@ struct FoodFilterView: View {
                                         Text(category.replacingOccurrences(of: "kategori.", with: ""))
                                             .font(.subheadline)
                                     }
-                                    //                                    .padding()
                                     .frame(width: 115, height: 45)
                                     .background(
                                         filterModel.selectedFoodCategories.contains(category) ?

@@ -284,7 +284,87 @@ final class DataHelper {
                                  tags: [ "kategori.Ayam"],
                                  location: "Mama Djempol",
                                  foodDescription: "Ayam blackpepper yang dagingnya berkualitas dan segar buatan Mama Djempol.",
-                                 tenantId: 10)
+                                 tenantId: 10),
+                        FoodItem(
+                            name: "Ayam Cabe Ijo",
+                            price: 11000,
+                            image: "ayam.cabe.ijo",
+                            tags: ["kategori.Ayam"],
+                            location: "Mama Djempol",
+                            foodDescription: "Ayam cabe ijo pedas segar ala Mama Djempol.",
+                            tenantId: 10),
+                        FoodItem(
+                            name: "Tumis Kangkung",
+                            price: 11000,
+                            image: "tumis.kangkung",
+                            tags: ["kategori.Sayur"],
+                            location: "Mama Djempol",
+                            foodDescription: "Tumis kangkung segar dengan bumbu khas.",
+                            tenantId: 10),
+                        FoodItem(
+                            name: "Tumis Sawi Putih",
+                            price: 11000,
+                            image: "tumis.sawi.putih",
+                            tags: ["kategori.Sayur"],
+                            location: "Mama Djempol",
+                            foodDescription: "Sawi putih ditumis dengan bawang dan cabai pilihan.",
+                            tenantId: 10),
+                        FoodItem(
+                            name: "Ayam Asam Manis",
+                            price: 11000,
+                            image: "ayam.asam.manis",
+                            tags: ["kategori.Ayam"],
+                            location: "Mama Djempol",
+                            foodDescription: "Ayam goreng dengan saus asam manis segar.",
+                            tenantId: 10),
+                        FoodItem(
+                            name: "Ayam Jamur Kancing",
+                            price: 11000,
+                            image: "ayam.jamur.kancing",
+                            tags: ["kategori.Ayam"],
+                            location: "Mama Djempol",
+                            foodDescription: "Ayam lezat dipadukan dengan jamur kancing.",
+                            tenantId: 10),
+                        FoodItem(
+                            name: "Ayam Pedas Manis",
+                            price: 11000,
+                            image: "ayam.pedas.manis",
+                            tags: ["kategori.Ayam"],
+                            location: "Mama Djempol",
+                            foodDescription: "Perpaduan rasa pedas dan manis dalam ayam pilihan.",
+                            tenantId: 10),
+                        FoodItem(
+                            name: "Terong Balado",
+                            price: 11000,
+                            image: "terong.balado",
+                            tags: ["kategori.Sayur"],
+                            location: "Mama Djempol",
+                            foodDescription: "Terong goreng dengan sambal balado khas.",
+                            tenantId: 10),
+                        FoodItem(
+                            name: "Tumis Capcay",
+                            price: 11000,
+                            image: "tumis.capcay",
+                            tags: ["kategori.Sayur"],
+                            location: "Mama Djempol",
+                            foodDescription: "Aneka sayuran segar ditumis dengan bumbu lezat.",
+                            tenantId: 10),
+                        FoodItem(
+                            name: "Tumis Toge + Tahu",
+                            price: 11000,
+                            image: "tumis.toge.tahu",
+                            tags: ["kategori.Sayur"],
+                            location: "Mama Djempol",
+                            foodDescription: "Toge dan tahu ditumis sederhana tapi nikmat.",
+                            tenantId: 10),
+                        FoodItem(
+                            name: "Ayam Lada Hitam",
+                            price: 11000,
+                            image: "ayam.lada.hitam",
+                            tags: ["kategori.Ayam"],
+                            location: "Mama Djempol",
+                            foodDescription: "Ayam dengan saus lada hitam pedas gurih.",
+                            tenantId: 10),
                        ]),
             TenantItem(id: 11,
                        name: "AHZA Snack & Beverage",
@@ -764,10 +844,8 @@ struct Tenant: View {
                 let filterMax = filterModel.maxPriceFilter ?? Int.max
                 
                 // Check if tenant's range overlaps with filter range
-                //                priceFilter =
                 priceFilter = (tenantMax >= filterMin) && (tenantMin <= filterMax)
             }
-            
             return searchFilter && categoryFilter && priceFilter
         }
     }
@@ -955,7 +1033,7 @@ struct TenantDetailView: View {
                 ScrollView {
                     // Background Image with Logo Overlay
                     ZStack(alignment: .bottom) {
-                        // Background Image (unchanged)
+                        // Background Image
                         Image(tenant.image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -964,7 +1042,7 @@ struct TenantDetailView: View {
                         
                         // Logo and Info in HStack
                         HStack(alignment: .bottom, spacing: 20) {
-                            // Logo (now aligned to bottom left)
+                            // Logo
                             Image(tenant.logo)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -974,9 +1052,9 @@ struct TenantDetailView: View {
                                 .clipShape(Circle())
                                 .overlay(Circle().stroke(Color.white, lineWidth: 4))
                                 .shadow(radius: 5)
-                                .offset(y: 70) // Adjusted offset
+                                .offset(y: 70)
                             
-                            // Tenant Info VStack (right side of logo)
+                            // Tenant Info VStack
                             VStack(alignment: .leading, spacing: 8) {
                                 // Tenant Name
                                 Text(tenant.name)
@@ -1005,18 +1083,15 @@ struct TenantDetailView: View {
                                             .frame(width: 30, height: 30)
                                     }
                                 }
-                                //                                .padding(.top, 8)
                             }
-                            //                            .padding(.leading, 5)
-                            //                            .padding(.bottom, 20)
                             .offset(y: 135)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                     }
-                    .padding(.bottom, 100) // Adjusted padding
+                    .padding(.bottom, 100)
                     
-                    // Menu Section (unchanged)
+                    // Menu Section
                     VStack {
                         Text("Menu")
                             .font(.title)
@@ -1054,7 +1129,7 @@ struct TenantDetailView: View {
     }
 }
 
-// TenantFilterView.swift
+// TenantFilterView
 struct TenantFilterView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var filterModel: FilterModel
@@ -1093,7 +1168,6 @@ struct TenantFilterView: View {
                                         Text(category.replacingOccurrences(of: "kategori.", with: ""))
                                             .font(.subheadline)
                                     }
-                                    //                                    .padding(8)
                                     .frame(width: 115, height: 45)
                                     .background(
                                         filterModel.selectedTenantCategories.contains(category) ?
