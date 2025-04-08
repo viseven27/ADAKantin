@@ -20,7 +20,7 @@ class FilterModel {
     var selectedTenantCategories: Set<String>
     
     init(
-        maxPrice: Double = 10000,
+        maxPrice: Double = 50000,
         selectedFoodCategories: Set<String> = [],
         minPriceFilter: Int? = nil,
         maxPriceFilter: Int? = nil,
@@ -42,7 +42,7 @@ class FilterModel {
     }
     
     func reset() {
-        maxPrice = 10000
+        maxPrice = 50000
         selectedFoodCategories = []
         minPriceFilter = nil
         maxPriceFilter = nil
