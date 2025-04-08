@@ -303,7 +303,7 @@ struct FoodFilterView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var filterModel: FilterModel
     
-    let categories = ["kategori.Ayam", "kategori.Sayur", "kategori.Ikan", "kategori.Sapi", "kategori.Cabe", "kategori.Minuman", "kategori.Kaleng"]
+    let categories = ["kategori.Ayam", "kategori.Sayur", "kategori.Ikan", "kategori.Sapi", "kategori.Cabe", "kategori.Minuman", "kategori.Processed", "kategori.Kacang"]
     
     var body: some View {
         VStack() {
