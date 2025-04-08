@@ -654,6 +654,13 @@ final class DataHelper {
                                  tags: ["kategori.Sayur", "kategori.Kacang"],
                                  location: "Warung Gado-Gado",
                                  foodDescription: "Gado Gado Sayur + Lontong + Telor yang nikmat dengan sayuran yang segar dan juga bumbu kacang yang gurih yang di buat oleh Warung Gado Gado.",
+                                 tenantId: 14),
+                        FoodItem(name: "Gado Gado Sayur + Lontong + Telor",
+                                 price: 25000,
+                                 image:"Gado Gado Sayur + Lontong + Telor",
+                                 tags: ["kategori.Sayur", "kategori.Kacang"],
+                                 location: "Warung Gado-Gado",
+                                 foodDescription: "Gado Gado Sayur + Lontong + Telor yang nikmat dengan sayuran yang segar dan juga bumbu kacang yang gurih yang di buat oleh Warung Gado Gado.",
                                  tenantId: 14)
                        ]),
         ]
