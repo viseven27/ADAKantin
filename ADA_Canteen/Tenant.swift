@@ -48,6 +48,13 @@ final class DataHelper {
                                  tags: ["kategori.ayam", "kategori.sayur"],
                                  location: "Soto Pak Gembul",
                                  foodDescription: "Soto ayam lezat buatan Pak Gembul",
+                                 tenantId: 1),
+                        FoodItem(name: "Soto Ayam",
+                                 price: 23000,
+                                 image: "soto.ayam.pakgembul",
+                                 tags: ["kategori.ayam", "kategori.sayur"],
+                                 location: "Soto Pak Gembul",
+                                 foodDescription: "Soto ayam lezat buatan Pak Gembul",
                                  tenantId: 1)
                        ]),
             TenantItem(id: 2,
@@ -109,7 +116,6 @@ final class DataHelper {
                                  location: "Kedai 2 Nyonya",
                                  foodDescription: "Aneka Gorengan  yang lezat buatan Kedai 2 Nyonya",
                                  tenantId: 3)
-                        
                        ]),
             TenantItem(id: 4,
                        name: "Bebek Goreng Rinjani",
