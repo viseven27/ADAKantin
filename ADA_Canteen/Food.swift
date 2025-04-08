@@ -54,7 +54,7 @@ struct Food: View {
                             .background(Color("aksen"))
                             .cornerRadius(5)
                         
-                        TextField("Mau makan apa, nih?", text: $searchText)
+                        TextField("Mau makan apa, nih??", text: $searchText)
                             .font(.system(size: 14, weight: .light))
                             .foregroundColor(.black)
                         
