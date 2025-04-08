@@ -11,6 +11,7 @@ struct TenantItem: Identifiable {
     let id: Int
     let name: String
     let image: String
+    let logo: String
     let minPrice: Int
     let maxPrice: Int
     let tags: [String]
@@ -37,6 +38,7 @@ final class DataHelper {
             TenantItem(id: 1,
                        name: "Soto Pak Gembul",
                        image: "sotopakgembul_img",
+                       logo: "soto pak gembul logo",
                        minPrice: 18000,
                        maxPrice: 30000,
                        tags: ["kategori.Ayam", "kategori.Sapi", "kategori.Cabe", "kategori.Sayur"],
@@ -53,6 +55,7 @@ final class DataHelper {
             TenantItem(id: 3,
                        name: "Kedai 2 Nyonya",
                        image: "kedai2nyonya_img",
+                       logo: "kedai dua nyonya logo",
                        minPrice: 2000,
                        maxPrice: 25000,
                        tags: ["kategori.Ayam", "kategori.Sapi", "kategori.Ikan", "kategori.Cabe", "kategori.Sayur"],
@@ -97,6 +100,7 @@ final class DataHelper {
             TenantItem(id: 4,
                        name: "Bebek Goreng Rinjani",
                        image: "bebekgorengrinjani_img",
+                       logo: "bebek rinjani logo",
                        minPrice: 23000,
                        maxPrice: 35000,
                        tags: ["kategori.Ayam", "kategori.Cabe"],
@@ -113,6 +117,7 @@ final class DataHelper {
             TenantItem(id: 5,
                        name: "Kantin Kasturi",
                        image: "kantinkasturi_img",
+                       logo: "kasturi.logo",
                        minPrice: 15000,
                        maxPrice: 25000,
                        tags: ["kategori.Ayam", "kategori.Sapi", "kategori.Ikan", "kategori.Cabe", "kategori.Sayur"],
@@ -192,6 +197,7 @@ final class DataHelper {
             TenantItem(id: 6,
                        name: "La Ding",
                        image: "lading_img",
+                       logo: "la ding logo",
                        minPrice: 18000,
                        maxPrice: 30000,
                        tags: ["kategori.Sayur", "kategori.Kacang"],
@@ -215,6 +221,7 @@ final class DataHelper {
             TenantItem(id: 7,
                        name: "Kedai Laris",
                        image: "kedailaris_img",
+                       logo: "laris manis logo",
                        minPrice: 18000,
                        maxPrice: 35000,
                        tags: ["kategori.Ayam", "kategori.Sapi", "kategori.Ikan", "kategori.Cabe", "kategori.Sayur"],
@@ -231,6 +238,7 @@ final class DataHelper {
             TenantItem(id: 8,
                        name: "Kedai Khas Nusantara",
                        image: "kedaikhasnusantara_img",
+                       logo: "kedai khas nusantara logo",
                        minPrice: 18000,
                        maxPrice: 25000,
                        tags: ["kategori.Ayam", "kategori.Sapi", "kategori.Ikan", "kategori.Cabe", "kategori.Sayur"],
@@ -247,6 +255,7 @@ final class DataHelper {
             TenantItem(id: 9,
                        name: "Dapoer Cowek",
                        image: "dapoercowek_img",
+                       logo: "dapoer cowek logo",
                        minPrice: 15000,
                        maxPrice: 30000,
                        tags: ["kategori.Ayam", "kategori.Sapi", "kategori.Ikan", "kategori.Cabe", "kategori.Sayur"],
@@ -263,6 +272,7 @@ final class DataHelper {
             TenantItem(id: 10,
                        name: "Mama Djempol",
                        image: "mamadjempol_img",
+                       logo: "mama djempol logo",
                        minPrice: 18000,
                        maxPrice: 30000,
                        tags: ["kategori.Ayam", "kategori.Sapi", "kategori.Ikan", "kategori.Cabe", "kategori.Sayur"],
@@ -279,6 +289,7 @@ final class DataHelper {
             TenantItem(id: 11,
                        name: "AHZA Snack & Beverage",
                        image: "ahza_img",
+                       logo: "ahza logo",
                        minPrice: 3000,
                        maxPrice: 30000,
                        tags: ["kategori.Minuman"],
@@ -505,6 +516,7 @@ final class DataHelper {
             TenantItem(id: 12,
                        name: "Mustafa Minang",
                        image: "mustafaminang_img",
+                       logo: "minang logo",
                        minPrice: 18000,
                        maxPrice: 30000,
                        tags: ["kategori.Ayam", "kategori.Sapi", "kategori.Ikan", "kategori.Cabe", "kategori.Sayur"],
@@ -584,6 +596,7 @@ final class DataHelper {
             TenantItem(id: 13,
                        name: "Bakso Jos",
                        image: "baksojos_img",
+                       logo: "bakso jos logo",
                        minPrice: 18000,
                        maxPrice: 30000,
                        tags: ["kategori.Ayam", "kategori.Ikan", "kategori.Cabe", "kategori.Sayur"],
@@ -670,6 +683,7 @@ final class DataHelper {
             TenantItem(id: 14,
                        name: "Warung Gado-Gado",
                        image: "Warung Gado-Gado",
+                       logo: "gadogado.logo",
                        minPrice: 17000,
                        maxPrice: 25000,
                        tags: ["kategori.Sayur", "kategori.Kacang"],
@@ -951,12 +965,12 @@ struct TenantDetailView: View {
                         // Logo and Info in HStack
                         HStack(alignment: .bottom, spacing: 20) {
                             // Logo (now aligned to bottom left)
-                            Image(systemName: "fork.knife.circle.fill")
+                            Image(tenant.logo)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 100, height: 100)
                                 .foregroundColor(.white)
-                                .background(Color.gray.opacity(0.7))
+                                .background(Color.white)
                                 .clipShape(Circle())
                                 .overlay(Circle().stroke(Color.white, lineWidth: 4))
                                 .shadow(radius: 5)

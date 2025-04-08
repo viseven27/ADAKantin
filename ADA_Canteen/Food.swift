@@ -212,18 +212,18 @@ struct FoodDetailView: View {
                         }
                         
                         // Tag Kategori
-                        HStack(spacing: 4) {
+                        HStack(alignment: .center, spacing: 8) {
                             ForEach(foodItem.tags, id: \.self) { tag in
                                 Image(tag)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 30, height: 30)
-                                    .padding(.top, 5)
-                                    .padding(.bottom, 9)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.leading, 18)
                             }
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)  // Rata kiri di parent-nya
+                        .padding(.top, 5)
+                        .padding(.bottom, 9)
+                        .padding(.leading, 18)
                         
                         // Divider
                         Divider()
