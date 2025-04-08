@@ -71,6 +71,13 @@ final class DataHelper {
                                  tags: ["kategori.ayam"],
                                  location: "Kedai Aneka Rasa",
                                  foodDescription: "Ayam bistik yang dagingnya empuk buatan Kedai Aneka Rasa",
+                                 tenantId: 2),
+                        FoodItem(name: "Ayam Bistik",
+                                 price: 10000,
+                                 image: "ayam.bistik",
+                                 tags: ["kategori.ayam"],
+                                 location: "Kedai Aneka Rasa",
+                                 foodDescription: "Ayam bistik yang dagingnya empuk buatan Kedai Aneka Rasa",
                                  tenantId: 2)
                        ]),
             TenantItem(id: 3,
