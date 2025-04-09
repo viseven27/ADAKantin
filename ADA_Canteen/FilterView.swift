@@ -3,11 +3,9 @@ import Observation
 
 @Observable
 class FilterModel {
-    // For Food filtering
     var maxPrice: Double
     var selectedFoodCategories: Set<String>
     
-    // For Tenant filtering
     var minPriceFilter: Int?
     var maxPriceFilter: Int?
     var selectedTenantCategories: Set<String>

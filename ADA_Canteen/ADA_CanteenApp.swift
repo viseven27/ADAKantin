@@ -7,5 +7,3 @@ import SwiftUI
         }
     }
 }
-
-//Where the app start

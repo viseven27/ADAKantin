@@ -12,7 +12,7 @@ struct TenantItem: Identifiable {
     let foodItems: [FoodItem]
     
     var priceRangeString: String {
-        "Rp \(minPrice.formattedWithSeparator) - \(maxPrice.formattedWithSeparator)"
+        "\(minPrice.formattedWithSeparator) - \(maxPrice.formattedWithSeparator)"
     }
 }
 
@@ -34,7 +34,6 @@ final class DataHelper {
 private func generateTenantFilterText(selectedCategories: Set<String>, minPrice: Int?, maxPrice: Int?) -> String {
     var parts = [String]()
     
-    // Handle kategori
     if !selectedCategories.isEmpty {
         let categoryNames = selectedCategories.map { $0.replacingOccurrences(of: "kategori.", with: "") }
         let categoriesText = categoryNames.count == 1 ?
@@ -43,7 +42,6 @@ private func generateTenantFilterText(selectedCategories: Set<String>, minPrice:
         parts.append(categoriesText)
     }
     
-    // Handle harga
     if let min = minPrice, let max = maxPrice {
         parts.append("harga Rp\(min.formattedWithSeparator)-Rp\(max.formattedWithSeparator)")
     } else if let min = minPrice {
@@ -68,15 +66,12 @@ struct Tenant: View {
     
     var filteredTenants: [TenantItem] {
         tenants.filter { tenant in
-            // Search filter
             let searchFilter = searchText.isEmpty ||
             tenant.name.localizedCaseInsensitiveContains(searchText)
             
-            // Category filter
             let categoryFilter = filterModel.selectedTenantCategories.isEmpty ||
             tenant.tags.contains { filterModel.selectedTenantCategories.contains($0) }
             
-            // Price range filter
             let priceFilter: Bool
             if filterModel.minPriceFilter == nil && filterModel.maxPriceFilter == nil {
                 priceFilter = true
@@ -86,7 +81,6 @@ struct Tenant: View {
                 let filterMin = filterModel.minPriceFilter ?? Int.min
                 let filterMax = filterModel.maxPriceFilter ?? Int.max
                 
-                // Check if tenant's range overlaps with filter range
                 priceFilter = (tenantMax >= filterMin) && (tenantMin <= filterMax)
             }
             return searchFilter && categoryFilter && priceFilter
@@ -104,7 +98,7 @@ struct Tenant: View {
                             .background(Color("aksen"))
                             .cornerRadius(5)
                         
-                        TextField("Mau makan apa, nih?", text: $searchText)
+                        TextField("Pingin makan di tenant yang mana?", text: $searchText)
                             .font(.system(size: 14, weight: .light))
                             .foregroundColor(.black)
                         
@@ -130,18 +124,17 @@ struct Tenant: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 24, height: 24)
                             .padding(.leading, 5)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color(.gray))
                     }
                 }
                 .padding()
                 
                 VStack(alignment: .leading) {
-                    Text("Tenants")
+                    Text("Tenant")
                         .font(.title)
                         .fontWeight(.bold)
                         .padding(.horizontal)
                     
-                    // Di dalam VStack utama, setelah Text("Tenants")
                     if !filterModel.selectedTenantCategories.isEmpty ||
                        filterModel.minPriceFilter != nil ||
                        filterModel.maxPriceFilter != nil {
@@ -198,14 +191,10 @@ struct Tenant: View {
                                     .padding(.vertical, 5)
                                 }
                                 .buttonStyle(PlainButtonStyle())
-                                
-                                if tenant.id != filteredTenants.last?.id {
-                                    Divider()
-                                        .padding(.horizontal)
-                                }
                             }
                         }
                         .padding(.bottom, 20)
+                
                     }
                 }
             }
@@ -280,7 +269,7 @@ struct TenantDetailView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 24, height: 24)
                             .padding(.leading, 5)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color(.gray))
                     }
                 }
                 .padding(.horizontal)
@@ -379,8 +368,6 @@ struct TenantDetailView: View {
                     }
                 }
             }
-            .navigationTitle("Tenant Details")
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -445,8 +432,6 @@ struct TenantFilterView: View {
                         
                     }
                     .padding(.horizontal)
-                    
-                    // Price Range Filter
                     Group {
                         Text("Range Harga (Rp)")
                             .font(.headline)
@@ -471,8 +456,6 @@ struct TenantFilterView: View {
                                 )
                             }
                             .accentColor(Color("aksen"))
-                            
-                            // Slider untuk Harga Maksimum
                             VStack(alignment: .leading) {
                                 Text("Maksimum: Rp \(filterModel.maxPriceFilter?.formattedWithSeparator ?? "100.000")")
                                     .font(.subheadline)
