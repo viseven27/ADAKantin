@@ -7,6 +7,8 @@ struct FoodItem: Identifiable {
     let image: String
     let tags: [String]
     let location: String
+    let foodDescription: String
+    let tenantId: Int
 }
 
 struct Food: View {
@@ -14,36 +16,24 @@ struct Food: View {
     @State private var isFilterViewPresented = false
     @State private var filterModel = FilterModel()
     
-    let foodItems = [
-        FoodItem(name: "Ayam Bistik", price: 5000, image: "ayam.bistik", tags: [ "kategori.ayam"], location: "Kantin Kasturi"),
-        FoodItem(name: "Cah Toge", price: 5000, image: "cah.toge", tags: ["kategori.sayur", "kategori.cabe"], location: "Kantin Kasturi"),
-        FoodItem(name: "Ayam Teriyaki", price: 5000, image: "ayam.teriyaki", tags: ["kategori.ayam"], location: "Kantin Kasturi"),
-        FoodItem(name: "Ikan Cabe Garam", price: 5000, image: "ikan.cabe.garam", tags: ["kategori.ikan", "kategori.cabe"], location: "Kantin Kasturi"),
-        FoodItem(name: "Ayam Geprek", price: 5000, image: "ayam.geprek", tags: ["kategori.ayam", "kategori.cabe"], location: "Kantin Kasturi"),
-        FoodItem(name: "Ayam Penyet", price: 5000, image: "ayam.penyet", tags: ["kategori.ayam", "kategori.cabe"], location: "Kantin Kasturi"),
-        FoodItem(name: "Sosis Oseng", price: 4500, image: "sosis.oseng", tags: ["kategori.sapi", "kategori.cabe"], location: "Kantin Kasturi"),
-        FoodItem(name: "Tempe Orek", price: 3500, image: "tempe.orek", tags: ["kategori.sayur"], location: "Kantin Kasturi"),
-        FoodItem(name: "Sapi Lada Hitam", price: 8000, image: "sapi.lada.hitam", tags: ["kategori.sapi", "kategori.cabe"], location: "Kantin Kasturi"),
-        FoodItem(name: "Telur Dadar", price: 3000, image: "telur.dadar", tags: ["kategori.sayur"], location: "Kantin Kasturi"),
-        FoodItem(name: "Gado-Gado", price: 6000, image: "gado.gado", tags: ["kategori.sayur"], location: "Kantin Kasturi")
-    ]
-    
+    let foodItems = DataHelper.loadTenants().flatMap(\.foodItems)
+     
     var filteredFoodItems: [FoodItem] {
-            foodItems.filter { food in
-                // Price filter
-                let priceFilter = Double(food.price) <= filterModel.maxPrice
-                
-                // Category filter (if any categories selected)
-                let categoryFilter = filterModel.selectedFoodCategories.isEmpty ||
-                                    food.tags.contains { filterModel.selectedFoodCategories.contains($0) }
-                
-                // Search text filter
-                let searchFilter = searchText.isEmpty ||
-                                 food.name.localizedCaseInsensitiveContains(searchText)
-                
-                return priceFilter && categoryFilter && searchFilter
-            }
+        foodItems.filter { food in
+            // Price filter
+            let priceFilter = Double(food.price) <= filterModel.maxPrice
+            
+            // Category filter
+            let categoryFilter = filterModel.selectedFoodCategories.isEmpty ||
+            food.tags.contains { filterModel.selectedFoodCategories.contains($0) }
+            
+            // Search text filter
+            let searchFilter = searchText.isEmpty ||
+            food.name.localizedCaseInsensitiveContains(searchText)
+            
+            return priceFilter && categoryFilter && searchFilter
         }
+    }
     
     var body: some View {
         NavigationStack {
@@ -57,7 +47,7 @@ struct Food: View {
                             .background(Color("aksen"))
                             .cornerRadius(5)
                         
-                        TextField("Mau makan apa, nih?", text: $searchText)
+                        TextField("Mau makan apa, nih??", text: $searchText)
                             .font(.system(size: 14, weight: .light))
                             .foregroundColor(.black)
                         
@@ -95,8 +85,20 @@ struct Food: View {
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
-//                        .padding(.leading, 14)
                     
+                    // Di dalam VStack utama, setelah Text("Foods")
+                    if !filterModel.selectedFoodCategories.isEmpty || filterModel.maxPrice < 50000 {
+                        Text(generateFilterText(
+                            selectedCategories: filterModel.selectedFoodCategories,
+                            maxPrice: filterModel.maxPrice
+                        ))
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
+                        .padding(.bottom, 8)
+                    }
+
                     ScrollView {
                         LazyVGrid(
                             columns: [
@@ -126,6 +128,31 @@ struct Food: View {
     }
 }
 
+// Fungsi untuk menghasilkan teks filter aktif (Food)
+private func generateFilterText(selectedCategories: Set<String>, maxPrice: Double) -> String {
+    var parts = [String]()
+    
+    // Handle kategori
+    if !selectedCategories.isEmpty {
+        let categoryNames = selectedCategories.map { $0.replacingOccurrences(of: "kategori.", with: "") }
+        let categoriesText = categoryNames.count == 1 ?
+            "kategori \(categoryNames[0])" :
+            "kategori \(categoryNames.joined(separator: ", "))"
+        parts.append(categoriesText)
+
+    }
+    
+    // Handle harga
+    if maxPrice < 50000 {
+        parts.append("harga < Rp\(Int(maxPrice).formattedWithSeparator)")
+    }
+    
+    if parts.isEmpty {
+        return "Menampilkan semua makanan"
+    } else {
+        return "Menampilkan makanan dengan \(parts.joined(separator: " dan "))"
+    }
+}
 
 struct FoodCard: View {
     let item: FoodItem
@@ -174,43 +201,8 @@ struct FoodCard: View {
 struct FoodDetailView: View {
     let foodItem: FoodItem
     
-    let tenant = TenantItem(
-        name: "Kantin Kasturi",
-        image: "kantinkasturi_img",
-        minPrice: 15000,
-        maxPrice: 25000,
-        tags: ["kategori.ayam", "kategori.sapi", "kategori.ikan", "kategori.cabe", "kategori.sayur"],
-        description: "Hidangan sederhana dengan rasa yang memikat"
-    )
-    
-    // Generate food description based on food name
-    var foodDescription: String {
-        switch foodItem.name {
-        case "Ayam Bistik":
-            return "Potongan ayam empuk dipanggang atau digoreng dengan sempurna, disajikan dengan saus bistik khas yang manis-gurih, ditambah irisan bawang bombay dan paprika untuk cita rasa yang kaya. Cocok dinikmati dengan nasi hangat atau kentang tumbuk."
-        case "Cah Toge":
-            return "Toge segar yang ditumis dengan bawang putih, cabai, dan bumbu rahasia kami. Hidangan sederhana namun penuh nutrisi dan rasa."
-        case "Ayam Teriyaki":
-            return "Ayam premium yang dimarinasi dengan saus teriyaki khas, dipanggang hingga kecokelatan dan disajikan dengan taburan wijen. Rasa manis-gurih yang seimbang."
-        case "Ikan Cabe Garam":
-            return "Ikan segar yang digoreng krispi lalu ditumis dengan cabai dan bawang putih. Pedas gurih yang menggugah selera."
-        case "Ayam Geprek":
-            return "Ayam krispi ala geprek dengan sambal bawang yang pedasnya pas. Daging ayam yang juicy dengan lapisan tepung yang renyah."
-        case "Ayam Penyet":
-            return "Ayam kampung yang dimasak dengan bumbu rempah khas, disajikan dengan sambal terasi yang pedas menggigit."
-        case "Sosis Oseng":
-            return "Sosis premium yang dioseng dengan bawang bombay, cabai, dan bumbu spesial. Cocok untuk teman nasi hangat."
-        case "Tempe Orek":
-            return "Tempe yang diiris tipis dan digoreng kering dengan bumbu manis pedas. Kriuk-kriuk yang bikin ketagihan."
-        case "Sapi Lada Hitam":
-            return "Daging sapi pilihan yang ditumis dengan lada hitam, bawang bombay, dan paprika. Gurih dan sedikit pedas."
-        case "Telur Dadar":
-            return "Telur dadar tebal dengan isian daun bawang dan bumbu rahasia. Sederhana tapi selalu memuaskan."
-        case "Gado-Gado":
-            return "Campuran sayuran segar dengan bumbu kacang khas yang gurih. Disajikan dengan kerupuk dan telur rebus."
-        default:
-            return "Hidangan lezat dengan cita rasa khas yang menggugah selera."
-        }
+    var tenant: TenantItem? {
+        DataHelper.loadTenants().first(where: { $0.id == foodItem.tenantId})
     }
     
     var body: some View {
@@ -231,26 +223,36 @@ struct FoodDetailView: View {
                     
                     // Food Name and Price
                     VStack(spacing: 4) {
-                        Text(foodItem.name)
-                            .font(.title)
-                            .fontWeight(.bold)
-                        
-                        Text("Rp \(foodItem.price)")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                            .fontWeight(.semibold)
+                        HStack {
+                            Text(foodItem.name)
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 18)
+                                .font(.system(size: 24))
+                            
+                            Text("Rp \(foodItem.price)")
+                                .font(.title)
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                .padding(.trailing, 18)
+                                .font(.system(size: 24))
+                                .foregroundColor(Color("aksen"))
+                        }
                         
                         // Tag Kategori
-                        HStack(spacing: 4) {
+                        HStack(alignment: .center, spacing: 8) {
                             ForEach(foodItem.tags, id: \.self) { tag in
                                 Image(tag)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 30, height: 30)
-                                    .padding(.top, 5)
-                                    .padding(.bottom, 9)
                             }
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 5)
+                        .padding(.bottom, 9)
+                        .padding(.leading, 18)
                         
                         // Divider
                         Divider()
@@ -262,7 +264,7 @@ struct FoodDetailView: View {
                             Text("Deskripsi")
                                 .font(.headline)
                             
-                            Text(foodDescription)
+                            Text(foodItem.foodDescription)
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                                 .padding(.bottom, 10)
@@ -276,45 +278,47 @@ struct FoodDetailView: View {
                             .padding(.bottom, 15)
                         
                         // Tenant Button
-                        NavigationLink(destination: TenantDetailView(tenant: tenant)) {
-                            HStack {
-                                // Tenant Logo
-                                Image(tenant.image)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 50, height: 50)
-                                    .cornerRadius(8)
-                                    .clipped()
-                                    .padding(.trailing, 5)
-                                
-                                // Tenant Info
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text(tenant.name)
-                                        .font(.headline)
-                                        .foregroundColor(.primary)
+                        if let tenant: TenantItem {
+                            NavigationLink(destination: TenantDetailView(tenant: tenant)) {
+                                HStack {
+                                    // Tenant Logo
+                                    Image(tenant.image)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 50, height: 50)
+                                        .cornerRadius(8)
+                                        .clipped()
+                                        .padding(.trailing, 5)
                                     
-                                    Text(tenant.description)
-                                        .font(.subheadline)
-                                        .foregroundColor(.secondary)
-                                        .lineLimit(2)
-                                        .italic()
+                                    // Tenant Info
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(tenant.name)
+                                            .font(.headline)
+                                            .foregroundColor(.primary)
+                                        
+                                        Text(tenant.description)
+                                            .font(.subheadline)
+                                            .foregroundColor(.secondary)
+                                            .lineLimit(2)
+                                            .italic()
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .foregroundColor(.gray)
                                 }
-                                
-                                Spacer()
-                                
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(.gray)
+                                .padding()
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
                             }
-                            .padding()
-                            .background(Color("aksen20persen"))
-                            .cornerRadius(10)
+                            .buttonStyle(PlainButtonStyle())
+                            .padding(.horizontal)
+                            
+                            Spacer()
                         }
-                        .buttonStyle(PlainButtonStyle())
-                        .padding(.horizontal)
-                        
-                        Spacer()
                     }
-                    .padding(.bottom, 20)
                 }
             }
         }
@@ -323,12 +327,12 @@ struct FoodDetailView: View {
     }
 }
 
-// FoodFilterView.swift
+// FoodFilterView
 struct FoodFilterView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var filterModel: FilterModel
     
-    let categories = ["kategori.ayam", "kategori.sayur", "kategori.ikan", "kategori.sapi", "kategori.cabe"]
+    let categories = ["kategori.Ayam", "kategori.Sayur", "kategori.Ikan", "kategori.Sapi", "kategori.Cabe", "kategori.Minuman", "kategori.Processed", "kategori.Kacang"]
     
     var body: some View {
         VStack() {
@@ -342,30 +346,12 @@ struct FoodFilterView: View {
             
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
-                    // Price Filter
-                    Group {
-                        Text("Harga Maksimum")
-                            .font(.headline)
-                        
-                        HStack {
-                            Text("Rp \(Int(filterModel.maxPrice))")
-                            Spacer()
-                        }
-                        
-                        Slider(
-                            value: $filterModel.maxPrice,
-                            in: 0...10000,
-                            step: 500
-                        )
-                        .accentColor(Color("aksen"))
-                    }
-                    .padding(.horizontal)
                     
                     // Category Filter
                     Group {
                         Text("Kategori")
                             .font(.headline)
-                            .padding(.vertical, 10)
+                        
                         
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 10) {
                             ForEach(categories, id: \.self) { category in
@@ -379,7 +365,6 @@ struct FoodFilterView: View {
                                         Text(category.replacingOccurrences(of: "kategori.", with: ""))
                                             .font(.subheadline)
                                     }
-//                                    .padding()
                                     .frame(width: 115, height: 45)
                                     .background(
                                         filterModel.selectedFoodCategories.contains(category) ?
@@ -400,22 +385,57 @@ struct FoodFilterView: View {
                         }
                     }
                     .padding(.horizontal)
+                    .padding(.bottom, 10)
+                    
+                    // Price Filter
+                    Group {
+                        Text("Harga Maksimum")
+                            .font(.headline)
+                            .padding(.bottom, 10)
+                        
+                        HStack {
+                            Text("Rp \(Int(filterModel.maxPrice))")
+                            Spacer()
+                        }
+                        
+                        Slider(
+                            value: $filterModel.maxPrice,
+                            in: 0...50000,
+                            step: 500
+                        )
+                        .accentColor(Color("aksen"))
+                    }
+                    .padding(.horizontal)
                 }
             }
             
             // Apply Button
-            Button(action: {
-                dismiss()
-            }) {
-                Text("Terapkan Filter")
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(.white)
-                    .fontWeight(.bold)
-                    .padding()
-                    .background(Color("aksen"))
-                    .cornerRadius(10)
+            HStack {
+                Button(action: {
+                    filterModel.reset()
+                }) {
+                    Text("Reset")
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color("aksen"))
+                        .padding()
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(10)
+                }
+                
+                Button(action: {
+                    dismiss()
+                }) {
+                    Text("Terapkan Filter")
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(.white)
+                        .fontWeight(.bold)
+                        .padding()
+                        .background(Color("aksen"))
+                        .cornerRadius(10)
+                }
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.bottom)
         }
     }
 }
