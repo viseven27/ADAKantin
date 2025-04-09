@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  ADA_Canteen
-//
-//  Created by Daven Karim on 21/03/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {

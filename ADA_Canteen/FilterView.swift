@@ -1,10 +1,3 @@
-//
-//  FilterView.swift
-//  ADA Kantin
-//
-//  Created by Daven Karim on 26/03/25.
-//
-// FilterModel.swift
 import Foundation
 import Observation
 
