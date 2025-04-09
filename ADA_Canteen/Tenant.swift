@@ -307,44 +307,47 @@ struct TenantDetailView: View {
                                 .clipShape(Circle())
                                 .overlay(Circle().stroke(Color.white, lineWidth: 4))
                                 .shadow(radius: 5)
-                                .offset(y: 70)
+                                .offset(y: 30)
+                                .padding(.leading, 20)
                             
+                            Spacer()
                             // Tenant Info VStack
-                            VStack(alignment: .leading, spacing: 6) {
-                                // Tenant Name
-                                Text(tenant.name)
-                                    .font(.system(size: 20))
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(.primary)
-                                
-                                // Price Range
-                                Text(tenant.priceRangeString)
-                                    .font(.system(size: 16))
+                        }
+                        .padding(.bottom, 10)
+                        VStack(alignment: .leading, spacing: 6) {
+                            // Tenant Name
+                            Text(tenant.name)
+                                .font(.system(size: 20))
+                                .fontWeight(.semibold)
+                                .foregroundColor(.primary)
+                            
+                            // Price Range
+                            Text(tenant.priceRangeString)
+                                .font(.system(size: 16))
 //                                    .foregroundColor(.secondary)
-                                    .fontWeight(.medium)
-                                
-                                // Deskripsi Tenant
-                                Text(tenant.description)
-                                    .font(.system(size: 12))
-                                    .foregroundColor(.secondary)
-                                    .italic()
-                                    .fixedSize(horizontal: false, vertical: true)
-                                // Tag Kategori
-                                HStack(spacing: 8) {
-                                    ForEach(tenant.tags, id: \.self) { tag in
-                                        Image(tag)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 20, height: 20)
-                                    }
+                                .fontWeight(.medium)
+                            
+                            // Deskripsi Tenant
+                            Text(tenant.description)
+                                .font(.system(size: 12))
+                                .foregroundColor(.secondary)
+                                .italic()
+                                .fixedSize(horizontal: false, vertical: true)
+                            // Tag Kategori
+                            HStack(spacing: 8) {
+                                ForEach(tenant.tags, id: \.self) { tag in
+                                    Image(tag)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 20, height: 20)
                                 }
                             }
-                            .offset(y: 135)
                         }
+                        .offset(y: 145)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                     }
-                    .padding(.bottom, 100)
+                    .padding(.bottom, 110)
                     
                     // Menu Section
                     VStack {

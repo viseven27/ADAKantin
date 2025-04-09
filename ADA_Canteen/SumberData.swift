@@ -297,7 +297,7 @@ struct TenantData {
                    minPrice: 7000,
                    maxPrice: 13000,
                    tags: ["kategori.Ayam", "kategori.Cabe"],
-                   description: "Rasa rumahan yang ngena banget, plus bumbu cowek yang unik dan nendang. Cocok buat yang kangen masakan ibu di kampung.",
+                   description: "Rasa rumahan yang ngena banget, plus bumbu cowek yang unik dan nendang.",
                    foodItems: [
                     FoodItem(name: "Ayam Sambal Cowek",
                              price: 13000,
@@ -395,7 +395,7 @@ struct TenantData {
                    minPrice: 3000,
                    maxPrice: 14000,
                    tags: ["kategori.Minuman", "kategori.Processed", "kategori.Sayur"],
-                   description: "Dari jajanan manis sampai minuman segar—AHZA punya semua yang kamu butuhin buat ngemil santai atau isi tenaga di sela aktivitas!",
+                   description: "Dari minuman segar sampai jajanan—AHZA punya semua yang kamu butuhin!",
                    foodItems: [
                     FoodItem(name: "Es Teh Tawar",
                              price: 3000,
