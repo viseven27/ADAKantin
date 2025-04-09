@@ -24,7 +24,7 @@ struct Food: View {
     @State private var filterModel = FilterModel()
     
     let foodItems = DataHelper.loadTenants().flatMap(\.foodItems)
-    
+     
     var filteredFoodItems: [FoodItem] {
         foodItems.filter { food in
             // Price filter
@@ -93,6 +93,19 @@ struct Food: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                     
+                    // Di dalam VStack utama, setelah Text("Foods")
+                    if !filterModel.selectedFoodCategories.isEmpty || filterModel.maxPrice < 50000 {
+                        Text(generateFilterText(
+                            selectedCategories: filterModel.selectedFoodCategories,
+                            maxPrice: filterModel.maxPrice
+                        ))
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
+                        .padding(.bottom, 8)
+                    }
+
                     ScrollView {
                         LazyVGrid(
                             columns: [
@@ -122,6 +135,31 @@ struct Food: View {
     }
 }
 
+// Fungsi untuk menghasilkan teks filter aktif (Food)
+private func generateFilterText(selectedCategories: Set<String>, maxPrice: Double) -> String {
+    var parts = [String]()
+    
+    // Handle kategori
+    if !selectedCategories.isEmpty {
+        let categoryNames = selectedCategories.map { $0.replacingOccurrences(of: "kategori.", with: "") }
+        let categoriesText = categoryNames.count == 1 ?
+            "kategori \(categoryNames[0])" :
+            "kategori \(categoryNames.joined(separator: ", "))"
+        parts.append(categoriesText)
+
+    }
+    
+    // Handle harga
+    if maxPrice < 50000 {
+        parts.append("harga < Rp\(Int(maxPrice).formattedWithSeparator)")
+    }
+    
+    if parts.isEmpty {
+        return "Menampilkan semua makanan"
+    } else {
+        return "Menampilkan makanan dengan \(parts.joined(separator: " dan "))"
+    }
+}
 
 struct FoodCard: View {
     let item: FoodItem
