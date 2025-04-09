@@ -163,15 +163,21 @@ struct Tenant: View {
                                             .clipped()
                                         
                                         VStack(alignment: .leading, spacing: 5) {
-                                            Text(tenant.name)
-                                                .font(.headline)
-                                                .foregroundColor(.black)
+                                            HStack {
+                                                Text(tenant.name)
+                                                    .font(.system(size: 16))
+                                                    .fontWeight(.semibold)
+                                            }
                                             
-                                            Text(tenant.description)
-                                                .font(.subheadline)
-                                                .foregroundColor(.gray)
-                                                .lineLimit(2)
-                                                .italic()
+                                            Text(tenant.priceRangeString)
+                                                .font(.system(size: 16))
+                                                .fontWeight(.medium)
+                                            
+//                                            Text(tenant.description)
+//                                                .font(.subheadline)
+//                                                .foregroundColor(.gray)
+//                                                .lineLimit(2)
+//                                                .italic()
                                             
                                             HStack(spacing: 4) {
                                                 ForEach(tenant.tags, id: \.self) { tag in
@@ -181,14 +187,18 @@ struct Tenant: View {
                                                         .frame(width: 20, height: 20)
                                                 }
                                                 Spacer()
-                                                Text(tenant.priceRangeString)
-                                                    .font(.caption)
-                                                    .fontWeight(.semibold)
+                                                
                                             }
                                         }
                                     }
                                     .padding(.horizontal)
                                     .padding(.vertical, 5)
+                                    
+//                                    .padding()
+//                                    .background(Color.white)
+//                                    .cornerRadius(12)
+//                                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+//                                    .padding(.horizontal)
                                 }
                                 .buttonStyle(PlainButtonStyle())
                             }
@@ -300,7 +310,7 @@ struct TenantDetailView: View {
                                 .offset(y: 70)
                             
                             // Tenant Info VStack
-                            VStack(alignment: .leading, spacing: 8) {
+                            VStack(alignment: .leading, spacing: 6) {
                                 // Tenant Name
                                 Text(tenant.name)
                                     .font(.system(size: 20))
@@ -309,9 +319,9 @@ struct TenantDetailView: View {
                                 
                                 // Price Range
                                 Text(tenant.priceRangeString)
-                                    .font(.system(size: 12))
-                                    .foregroundColor(.secondary)
-                                    .fontWeight(.semibold)
+                                    .font(.system(size: 16))
+//                                    .foregroundColor(.secondary)
+                                    .fontWeight(.medium)
                                 
                                 // Deskripsi Tenant
                                 Text(tenant.description)
@@ -320,12 +330,12 @@ struct TenantDetailView: View {
                                     .italic()
                                     .fixedSize(horizontal: false, vertical: true)
                                 // Tag Kategori
-                                HStack(spacing: 12) {
+                                HStack(spacing: 8) {
                                     ForEach(tenant.tags, id: \.self) { tag in
                                         Image(tag)
                                             .resizable()
                                             .scaledToFit()
-                                            .frame(width: 30, height: 30)
+                                            .frame(width: 20, height: 20)
                                     }
                                 }
                             }
@@ -338,11 +348,11 @@ struct TenantDetailView: View {
                     
                     // Menu Section
                     VStack {
-                        Text("Menu")
-                            .font(.title)
-                            .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal)
+//                        Text("Menu")
+//                            .font(.title)
+//                            .fontWeight(.semibold)
+//                            .frame(maxWidth: .infinity, alignment: .leading)
+//                            .padding(.horizontal)
                         
                         LazyVGrid(
                             columns: [
@@ -362,7 +372,7 @@ struct TenantDetailView: View {
                         .padding(.horizontal)
                         .padding(.bottom, 16)
                     }
-                    .padding(.top, 8)
+                    .padding(.top, 40)
                     .sheet(isPresented: $isFilterViewPresented) {
                         FoodFilterView(filterModel: $filterModel)
                     }
