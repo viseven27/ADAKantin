@@ -1,10 +1,3 @@
-//
-//  Tenant.swift
-//  ADA_Canteen
-//
-//  Created by Daven Karim on 22/03/25.
-//
-
 import SwiftUI
 
 struct TenantItem: Identifiable {
@@ -148,8 +141,6 @@ struct Tenant: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                
-                // Search Bar
                 HStack {
                     HStack {
                         Image(systemName: "magnifyingglass")
@@ -189,7 +180,6 @@ struct Tenant: View {
                 }
                 .padding()
                 
-                // Main Content
                 VStack(alignment: .leading) {
                     Text("Tenants")
                         .font(.title)

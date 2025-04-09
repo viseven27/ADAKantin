@@ -1,10 +1,3 @@
-//
-//  Food.swift
-//  ADA_Canteen
-//
-//  Created by Daven Karim on 22/03/25.
-//
-
 import SwiftUI
 
 struct FoodItem: Identifiable {
@@ -90,16 +83,16 @@ struct Food: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 24, height: 24)
                             .padding(.leading, 5)
-                            .foregroundColor(Color("aksen"))
+                            .foregroundColor(.black)
                     }
                 }
                 .padding()
                 
                 // Main Content
                 VStack {
-                    Text("Foods")
+                    Text("Makanan")
                         .font(.title)
-                        .fontWeight(.bold)
+                        .fontWeight(.semibold)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
 //                        .padding(.leading, 14)
@@ -150,7 +143,7 @@ struct FoodCard: View {
             
             // Food Name
             Text(item.name)
-                .font(.headline)
+                .fontWeight(.medium)
                 .lineLimit(1)
             
             // Location
@@ -159,9 +152,9 @@ struct FoodCard: View {
                 .foregroundColor(.secondary)
             
             // Price
-            Text("Rp \(item.price)")
+            Text("\(item.price)")
                 .foregroundColor(.black)
-            
+                .font(.headline)
             
             // Tag Kategori
             HStack(spacing: 4) {
@@ -223,7 +216,6 @@ struct FoodDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                
                 // Food Image
                 Image(foodItem.image)
                     .resizable()
