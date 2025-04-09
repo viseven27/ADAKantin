@@ -76,7 +76,7 @@ struct Food: View {
                 VStack {
                     Text("Makanan")
                         .font(.title)
-                        .fontWeight(.semibold)
+                        .fontWeight(.bold)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                     
