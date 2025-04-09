@@ -40,7 +40,7 @@ final class DataHelper {
                        minPrice: 18000,
                        maxPrice: 30000,
                        tags: ["kategori.ayam", "kategori.sapi", "kategori.cabe", "kategori.sayur"],
-                       description: "Soto lezat dengan kuah gurih dan daging empuk.",
+                       description: "Lagi dingin? Kuah soto gurih panas Pak Gembul siap bikin badan anget dan hati senang. Dagingnya? Lumer di mulut!.",
                        foodItems: [
                         FoodItem(name: "Soto Ayam",
                                  price: 23000,
@@ -63,7 +63,7 @@ final class DataHelper {
                        minPrice: 15000,
                        maxPrice: 25000,
                        tags: ["kategori.ayam", "kategori.sapi", "kategori.ikan", "kategori.cabe", "kategori.sayur"],
-                       description: "Menyajikan berbagai hidangan dengan cita rasa beragam.",
+                       description: "Bingung mau makan apa? Di sini jawabannya! Puluhan pilihan menu dengan rasa yang gak pernah gagal. Dari yang ringan sampai yang pedas nendang!.",
                        foodItems: [
                         FoodItem(name: "Ayam Bistik",
                                  price: 10000,
@@ -79,7 +79,7 @@ final class DataHelper {
                        minPrice: 2000,
                        maxPrice: 25000,
                        tags: ["kategori.ayam", "kategori.sapi", "kategori.ikan", "kategori.cabe", "kategori.sayur"],
-                       description: "Masakan rumahan ala nyonya, nikmat dan mengenyangkan.",
+                       description: "Rasa rumahan yang selalu bikin kangen. Porsinya mantap, rasanya kaya bumbu, cocok buat yang rindu masakan ibu!.",
                        foodItems: [
                         FoodItem(name: "Nasi Bogana",
                                  price: 25000,
@@ -123,7 +123,7 @@ final class DataHelper {
                        minPrice: 23000,
                        maxPrice: 35000,
                        tags: ["kategori.ayam", "kategori.cabe"],
-                       description: "Bebek goreng krispi dengan bumbu khas Rinjani.",
+                       description: "Bebek goreng renyah dengan bumbu rahasia khas Rinjani. Harum, gurih, dan bikin kamu lupa diet!.",
                        foodItems: [
                         FoodItem(name: "Bebek Goreng",
                                  price: 23000,
@@ -139,7 +139,7 @@ final class DataHelper {
                        minPrice: 15000,
                        maxPrice: 25000,
                        tags: ["kategori.ayam", "kategori.sapi", "kategori.ikan", "kategori.cabe", "kategori.sayur"],
-                       description: "Hidangan sederhana dengan rasa yang memikat.",
+                       description: "Mau makan cepat tapi tetap nikmat? Kantin Kasturi punya solusinya. Murah meriah, rasa enak banget!",
                        foodItems: [
                         FoodItem(name: "Ayam Bistik",
                                  price: 7000,
@@ -218,7 +218,7 @@ final class DataHelper {
                        minPrice: 18000,
                        maxPrice: 30000,
                        tags: ["kategori.ayam", "kategori.sapi", "kategori.ikan", "kategori.cabe", "kategori.sayur"],
-                       description: "Menjual soto dan siomay enak, cocok untuk makan siang.",
+                       description: "Kombinasi soto hangat dan siomay gurih yang siap nemenin makan siangmu. Porsi pas, rasa mantap—gak pernah salah pilih!.",
                        foodItems: [
                         FoodItem(name: "Telur Dadar La ding",
                                  price: 5000,
@@ -241,7 +241,7 @@ final class DataHelper {
                        minPrice: 18000,
                        maxPrice: 35000,
                        tags: ["kategori.ayam", "kategori.sapi", "kategori.ikan", "kategori.cabe", "kategori.sayur"],
-                       description: "Pilihan menu yang selalu laris dan favorit pelanggan.",
+                       description: "Gak cuma namanya yang laris, tapi rasanya juga bikin repeat order! Menu hits yang selalu jadi incaran pas jam makan.",
                        foodItems: [
                         FoodItem(name: "Ayam Bistik",
                                  price: 8500,
@@ -257,7 +257,7 @@ final class DataHelper {
                        minPrice: 18000,
                        maxPrice: 25000,
                        tags: ["kategori.ayam", "kategori.sapi", "kategori.ikan", "kategori.cabe", "kategori.sayur"],
-                       description: "Menyajikan kuliner tradisional dari berbagai daerah di Indonesia.",
+                       description: "Jelajah rasa Indonesia tanpa harus traveling! Dari Sabang sampai Merauke, semua kenikmatan tradisional ada di sini.",
                        foodItems: [
                         FoodItem(name: "Ayam Bistik",
                                  price: 5000,
@@ -273,7 +273,7 @@ final class DataHelper {
                        minPrice: 15000,
                        maxPrice: 30000,
                        tags: ["kategori.ayam", "kategori.sapi", "kategori.ikan", "kategori.cabe", "kategori.sayur"],
-                       description: "Masakan rumahan autentik dengan sentuhan bumbu cowek khas.",
+                       description: "Rasa rumahan yang ngena banget, plus bumbu cowek yang unik dan nendang. Cocok buat yang kangen masakan ibu di kampung.",
                        foodItems: [
                         FoodItem(name: "Ayam Bistik",
                                  price: 7000,
@@ -289,7 +289,7 @@ final class DataHelper {
                        minPrice: 18000,
                        maxPrice: 30000,
                        tags: ["kategori.ayam", "kategori.sapi", "kategori.ikan", "kategori.cabe", "kategori.sayur"],
-                       description: "Masakan ala mama yang bikin jempol naik!",
+                       description: "Masakan ala mama yang gak cuma bikin kenyang, tapi juga bikin senyum. Sekali coba, langsung kasih dua jempol!",
                        foodItems: [
                         FoodItem(name: "Ayam Bistik",
                                  price: 11000,
@@ -305,7 +305,7 @@ final class DataHelper {
                        minPrice: 3000,
                        maxPrice: 30000,
                        tags: ["kategori.ayam", "kategori.sapi", "kategori.ikan", "kategori.cabe", "kategori.sayur"],
-                       description: "Hidangan spesial dengan cita rasa unik.",
+                       description: "Dari jajanan manis sampai minuman segar—AHZA punya semua yang kamu butuhin buat ngemil santai atau isi tenaga di sela aktivitas!",
                        foodItems: [
                         FoodItem(name: "Es Teh Tawar",
                                  price: 3000,
@@ -531,7 +531,7 @@ final class DataHelper {
                        minPrice: 18000,
                        maxPrice: 30000,
                        tags: ["kategori.ayam", "kategori.sapi", "kategori.ikan", "kategori.cabe", "kategori.sayur"],
-                       description: "Masakan Minang otentik, pedas dan menggugah selera.",
+                       description: "Siap-siap meleleh! Masakan Minang otentik dengan cita rasa pedas dan kaya rempah yang langsung nge-jleb di lidah.",
                        foodItems: [
                         FoodItem(name: "Ayam Bistik",
                                  price: 7000,
@@ -547,7 +547,7 @@ final class DataHelper {
                        minPrice: 18000,
                        maxPrice: 30000,
                        tags: ["kategori.ayam", "kategori.ikan", "kategori.cabe", "kategori.sayur"],
-                       description: "Bakso kenyal dengan kuah kaldu mantap.",
+                       description: "Baksonya gede, kenyal, dan kuah kaldunya gurih maksimal—pas banget buat yang cari comfort food sejati. Pokoknya… JOS!",
                        foodItems: [
                         FoodItem(name: "Bakso Urat Komplit",
                                  price: 25000,
