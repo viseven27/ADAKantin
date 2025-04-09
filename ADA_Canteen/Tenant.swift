@@ -132,7 +132,7 @@ struct Tenant: View {
                 VStack(alignment: .leading) {
                     Text("Tenant")
                         .font(.title)
-                        .fontWeight(.bold)
+                        .fontWeight(.semibold)
                         .padding(.horizontal)
                     
                     if !filterModel.selectedTenantCategories.isEmpty ||
@@ -183,7 +183,7 @@ struct Tenant: View {
                                                 Spacer()
                                                 Text(tenant.priceRangeString)
                                                     .font(.caption)
-                                                    .fontWeight(.bold)
+                                                    .fontWeight(.semibold)
                                             }
                                         }
                                     }
@@ -304,7 +304,7 @@ struct TenantDetailView: View {
                                 // Tenant Name
                                 Text(tenant.name)
                                     .font(.system(size: 20))
-                                    .fontWeight(.bold)
+                                    .fontWeight(.semibold)
                                     .foregroundColor(.primary)
                                 
                                 // Price Range
@@ -340,7 +340,7 @@ struct TenantDetailView: View {
                     VStack {
                         Text("Menu")
                             .font(.title)
-                            .fontWeight(.bold)
+                            .fontWeight(.semibold)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
                         
@@ -376,42 +376,47 @@ struct TenantDetailView: View {
 struct TenantFilterView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var filterModel: FilterModel
-    
+
     let categories = ["kategori.Ayam", "kategori.Sayur", "kategori.Ikan", "kategori.Sapi", "kategori.Cabe", "kategori.Minuman", "kategori.Processed", "kategori.Kacang"]
     let priceSteps = Array(stride(from: 0, through: 100000, by: 5000))
-    
+
     var body: some View {
         VStack {
             HStack {
                 Text("Filter Tenant")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
+                    .font(.system(size: 24))
+                    .fontWeight(.semibold)
                 Spacer()
             }
             .padding(.top, 30)
             .padding(.bottom, 20)
             .padding(.horizontal)
-            
+
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     // Category Filter
                     Group {
                         Text("Kategori")
-                            .font(.headline)
-                        
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 10) {
+                            .font(.system(size: 20))
+                            .fontWeight(.medium)
+
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))], spacing: 10) {
                             ForEach(categories, id: \.self) { category in
                                 Button(action: {
                                     filterModel.toggleTenantCategory(category)
                                 }) {
-                                    HStack {
+                                    HStack(spacing: 6) {
                                         Image(category)
                                             .resizable()
-                                            .frame(width: 30, height: 30)
+                                            .frame(width: 20, height: 20)
                                         Text(category.replacingOccurrences(of: "kategori.", with: ""))
-                                            .font(.subheadline)
+                                            .font(.system(size: 12))
+                                            .lineLimit(1)
+                                            .truncationMode(.tail)
+                                        Spacer()
                                     }
-                                    .frame(width: 115, height: 45)
+                                    .padding(.horizontal, 6)
+                                    .frame(width: 115, height: 40)
                                     .background(
                                         filterModel.selectedTenantCategories.contains(category) ?
                                         Color("aksen").opacity(0.2) : Color.gray.opacity(0.1)
@@ -429,19 +434,20 @@ struct TenantFilterView: View {
                                 .foregroundColor(.primary)
                             }
                         }
-                        
                     }
                     .padding(.horizontal)
+
+                    // Price Range Filter
                     Group {
-                        Text("Range Harga (Rp)")
-                            .font(.headline)
-                        
+                        Text("Range Harga")
+                            .font(.system(size: 20))
+                            .fontWeight(.medium)
+
                         VStack(alignment: .leading, spacing: 20) {
-                            // Slider untuk Harga Minimum
                             VStack(alignment: .leading) {
-                                Text("Minimum: Rp \(filterModel.minPriceFilter?.formattedWithSeparator ?? "0")")
+                                Text("Minimum: \(filterModel.minPriceFilter?.formattedWithSeparator ?? "0")")
                                     .font(.subheadline)
-                                
+
                                 Slider(
                                     value: Binding(
                                         get: {
@@ -456,10 +462,11 @@ struct TenantFilterView: View {
                                 )
                             }
                             .accentColor(Color("aksen"))
+
                             VStack(alignment: .leading) {
-                                Text("Maksimum: Rp \(filterModel.maxPriceFilter?.formattedWithSeparator ?? "100.000")")
+                                Text("Maksimum: \(filterModel.maxPriceFilter?.formattedWithSeparator ?? "100.000")")
                                     .font(.subheadline)
-                                
+
                                 Slider(
                                     value: Binding(
                                         get: {
@@ -475,13 +482,11 @@ struct TenantFilterView: View {
                             }
                             .accentColor(Color("aksen"))
                         }
-                        
                     }
                     .padding(.horizontal)
-                    
                 }
             }
-            
+
             // Apply and Reset Buttons
             HStack {
                 Button(action: {
@@ -494,14 +499,14 @@ struct TenantFilterView: View {
                         .background(Color.gray.opacity(0.1))
                         .cornerRadius(10)
                 }
-                
+
                 Button(action: {
                     dismiss()
                 }) {
                     Text("Terapkan Filter")
                         .frame(maxWidth: .infinity)
                         .foregroundColor(.white)
-                        .fontWeight(.bold)
+                        .fontWeight(.semibold)
                         .padding()
                         .background(Color("aksen"))
                         .cornerRadius(10)
@@ -512,6 +517,7 @@ struct TenantFilterView: View {
         }
     }
 }
+
 
 #Preview {
     Tenant()
