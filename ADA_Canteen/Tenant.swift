@@ -269,7 +269,7 @@ struct TenantDetailView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 24, height: 24)
                             .padding(.leading, 5)
-                            .foregroundColor(Color("aksen"))
+                            .foregroundColor(Color(.gray))
                     }
                 }
                 .padding(.horizontal)
