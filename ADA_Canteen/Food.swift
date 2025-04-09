@@ -20,25 +20,21 @@ struct Food: View {
      
     var filteredFoodItems: [FoodItem] {
         foodItems.filter { food in
-            // Price filter
             let priceFilter = Double(food.price) <= filterModel.maxPrice
             
-            // Category filter
             let categoryFilter = filterModel.selectedFoodCategories.isEmpty ||
             food.tags.contains { filterModel.selectedFoodCategories.contains($0) }
             
-            // Search text filter
             let searchFilter = searchText.isEmpty ||
             food.name.localizedCaseInsensitiveContains(searchText)
-            
+        
             return priceFilter && categoryFilter && searchFilter
         }
     }
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                // Search Bar
+            VStack(spacing: 0){
                 HStack {
                     HStack {
                         Image(systemName: "magnifyingglass")
@@ -48,7 +44,7 @@ struct Food: View {
                             .cornerRadius(5)
                         
                         TextField("Mau makan apa, nih??", text: $searchText)
-                            .font(.system(size: 14, weight: .light))
+                            .font(.system(size: 14, weight: .regular))
                             .foregroundColor(.black)
                         
                         if !searchText.isEmpty {
@@ -64,7 +60,6 @@ struct Food: View {
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
                     
-                    // Filter Button
                     Button {
                         isFilterViewPresented = true
                     } label: {
@@ -73,12 +68,11 @@ struct Food: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 24, height: 24)
                             .padding(.leading, 5)
-                            .foregroundColor(.black)
+                            .foregroundColor(.gray)
                     }
                 }
                 .padding()
                 
-                // Main Content
                 VStack {
                     Text("Makanan")
                         .font(.title)
@@ -86,7 +80,6 @@ struct Food: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                     
-                    // Di dalam VStack utama, setelah Text("Foods")
                     if !filterModel.selectedFoodCategories.isEmpty || filterModel.maxPrice < 50000 {
                         Text(generateFilterText(
                             selectedCategories: filterModel.selectedFoodCategories,
@@ -128,11 +121,9 @@ struct Food: View {
     }
 }
 
-// Fungsi untuk menghasilkan teks filter aktif (Food)
 private func generateFilterText(selectedCategories: Set<String>, maxPrice: Double) -> String {
     var parts = [String]()
     
-    // Handle kategori
     if !selectedCategories.isEmpty {
         let categoryNames = selectedCategories.map { $0.replacingOccurrences(of: "kategori.", with: "") }
         let categoriesText = categoryNames.count == 1 ?
@@ -142,7 +133,6 @@ private func generateFilterText(selectedCategories: Set<String>, maxPrice: Doubl
 
     }
     
-    // Handle harga
     if maxPrice < 50000 {
         parts.append("harga < Rp\(Int(maxPrice).formattedWithSeparator)")
     }
@@ -159,7 +149,6 @@ struct FoodCard: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            // Food Image
             Image(item.image)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -167,34 +156,35 @@ struct FoodCard: View {
                 .frame(width: 180)
                 .cornerRadius(8)
                 .clipped()
+            VStack (alignment: .leading){
+                Text(item.name)
+                    .fontWeight(.medium)
+                    .lineLimit(1)
+                
+                Text(item.location)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+
+                Text("\(item.price)")
+                    .foregroundColor(.black)
+                    .fontWeight(.semibold)
+            }.padding(.leading, 6)
             
-            // Food Name
-            Text(item.name)
-                .fontWeight(.medium)
-                .lineLimit(1)
-            
-            // Location
-            Text(item.location)
-                .font(.caption)
-                .foregroundColor(.secondary)
-            
-            // Price
-            Text("\(item.price)")
-                .foregroundColor(.black)
-                .font(.headline)
-            
-            // Tag Kategori
             HStack(spacing: 4) {
                 ForEach(item.tags, id: \.self) { tag in
                     Image(tag)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 20, height: 20)
-                }
+                }.padding(.top, -6)
                 Spacer()
             }
+            .padding(.leading, 6)
         }
         .padding(.bottom, 8)
+        .background(Color.white)
+        .cornerRadius(8)
+        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
     }
 }
 
@@ -208,7 +198,6 @@ struct FoodDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                // Food Image
                 Image(foodItem.image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -217,30 +206,23 @@ struct FoodDetailView: View {
                     .cornerRadius(8)
                     .clipped()
                     .padding(.bottom, 20)
-                
-                // Food Info Section
                 VStack(spacing: 16) {
-                    
-                    // Food Name and Price
                     VStack(spacing: 4) {
                         HStack {
                             Text(foodItem.name)
                                 .font(.title)
-                                .fontWeight(.bold)
+                                .fontWeight(.medium)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 18)
                                 .font(.system(size: 24))
-                            
-                            Text("Rp \(foodItem.price)")
+                            Text("\(foodItem.price)")
                                 .font(.title)
                                 .fontWeight(.semibold)
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                                 .padding(.trailing, 18)
                                 .font(.system(size: 24))
-                                .foregroundColor(Color("aksen"))
+                                .foregroundColor(Color(.black))
                         }
-                        
-                        // Tag Kategori
                         HStack(alignment: .center, spacing: 8) {
                             ForEach(foodItem.tags, id: \.self) { tag in
                                 Image(tag)
@@ -254,34 +236,29 @@ struct FoodDetailView: View {
                         .padding(.bottom, 9)
                         .padding(.leading, 18)
                         
-                        // Divider
-                        Divider()
-                            .padding(.horizontal)
-                            .padding(.bottom, 10)
-                        
-                        // Description Section
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Deskripsi")
-                                .font(.headline)
+//                        Divider()
+//                            .padding(.horizontal)
+//                            .padding(.bottom, 10)
+
+//                        VStack(alignment: .leading, spacing: 8) {
+//                            Text("Deskripsi")
+//                                .font(.headline)
                             
                             Text(foodItem.foodDescription)
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                                 .padding(.bottom, 10)
-                        }
+//                        }
                         .padding(.horizontal)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        // Divider
-                        Divider()
-                            .padding(.horizontal)
-                            .padding(.bottom, 15)
-                        
-                        // Tenant Button
+
+//                        Divider()
+//                            .padding(.horizontal)
+//                            .padding(.bottom, 15)
+
                         if let tenant: TenantItem {
                             NavigationLink(destination: TenantDetailView(tenant: tenant)) {
                                 HStack {
-                                    // Tenant Logo
                                     Image(tenant.image)
                                         .resizable()
                                         .scaledToFill()
@@ -289,8 +266,7 @@ struct FoodDetailView: View {
                                         .cornerRadius(8)
                                         .clipped()
                                         .padding(.trailing, 5)
-                                    
-                                    // Tenant Info
+//                                    Ini pasrah, ga bisa memenuhi ruang gara2 padding 
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text(tenant.name)
                                             .font(.headline)
@@ -302,11 +278,7 @@ struct FoodDetailView: View {
                                             .lineLimit(2)
                                             .italic()
                                     }
-                                    
                                     Spacer()
-                                    
-                                    Image(systemName: "chevron.right")
-                                        .foregroundColor(.gray)
                                 }
                                 .padding()
                                 .background(Color.white)
@@ -322,12 +294,9 @@ struct FoodDetailView: View {
                 }
             }
         }
-        .navigationTitle("Food Details")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
-// FoodFilterView
 struct FoodFilterView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var filterModel: FilterModel
@@ -346,8 +315,6 @@ struct FoodFilterView: View {
             
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
-                    
-                    // Category Filter
                     Group {
                         Text("Kategori")
                             .font(.headline)
@@ -387,14 +354,13 @@ struct FoodFilterView: View {
                     .padding(.horizontal)
                     .padding(.bottom, 10)
                     
-                    // Price Filter
                     Group {
                         Text("Harga Maksimum")
                             .font(.headline)
                             .padding(.bottom, 10)
                         
                         HStack {
-                            Text("Rp \(Int(filterModel.maxPrice))")
+                            Text("\(Int(filterModel.maxPrice))")
                             Spacer()
                         }
                         
@@ -409,7 +375,6 @@ struct FoodFilterView: View {
                 }
             }
             
-            // Apply Button
             HStack {
                 Button(action: {
                     filterModel.reset()

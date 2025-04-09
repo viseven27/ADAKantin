@@ -1,10 +1,3 @@
-//
-//  SumberData.swift
-//  ADA Kantin
-//
-//  Created by Daven Karim on 09/04/25.
-//
-
 import Foundation
 
 struct TenantData {

@@ -2,9 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     init() {
-        // Mengatur warna latar belakang tab bar
         UITabBar.appearance().backgroundColor = UIColor.systemBackground
-        // Mengatur warna tab yang aktif (warna kuning)
         UITabBar.appearance().tintColor = UIColor(Color("aksen"))
     }
     
@@ -14,20 +12,19 @@ struct ContentView: View {
                 .tabItem {
                     VStack {
                         Image(systemName: "fork.knife")
-                        Text("Foods")
+                        Text("Makanan")
                     }
                 }
-            
             Tenant()
                 .tabItem {
                     VStack {
                         Image(systemName: "storefront.fill")
-                        Text("Tenants")
+                        Text("Tenant")
                             .fontWeight(.black)
                     }
                 }
         }
-        .accentColor(Color("aksen")) // Ngatur warna accent satu apllikasi jadi kuning
+        .accentColor(Color("aksen"))
     }
 }
 
