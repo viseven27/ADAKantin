@@ -66,12 +66,15 @@ struct Tenant: View {
     
     var filteredTenants: [TenantItem] {
         tenants.filter { tenant in
+            // Search filter
             let searchFilter = searchText.isEmpty ||
             tenant.name.localizedCaseInsensitiveContains(searchText)
             
+            // Category filter
             let categoryFilter = filterModel.selectedTenantCategories.isEmpty ||
             tenant.tags.contains { filterModel.selectedTenantCategories.contains($0) }
             
+            // Price range filter
             let priceFilter: Bool
             if filterModel.minPriceFilter == nil && filterModel.maxPriceFilter == nil {
                 priceFilter = true
@@ -81,6 +84,7 @@ struct Tenant: View {
                 let filterMin = filterModel.minPriceFilter ?? Int.min
                 let filterMax = filterModel.maxPriceFilter ?? Int.max
                 
+                // Check if tenant's range overlaps with filter range
                 priceFilter = (tenantMax >= filterMin) && (tenantMin <= filterMax)
             }
             return searchFilter && categoryFilter && priceFilter
@@ -98,7 +102,7 @@ struct Tenant: View {
                             .background(Color("aksen"))
                             .cornerRadius(5)
                         
-                        TextField("Pingin makan di tenant yang mana?", text: $searchText)
+                        TextField("Mau makan apa, nih?", text: $searchText)
                             .font(.system(size: 14, weight: .light))
                             .foregroundColor(.black)
                         
@@ -124,17 +128,18 @@ struct Tenant: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 24, height: 24)
                             .padding(.leading, 5)
-                            .foregroundColor(Color(.gray))
+                            .foregroundColor(.black)
                     }
                 }
                 .padding()
                 
                 VStack(alignment: .leading) {
-                    Text("Tenant")
+                    Text("Tenants")
                         .font(.title)
-                        .fontWeight(.semibold)
+                        .fontWeight(.bold)
                         .padding(.horizontal)
                     
+                    // Di dalam VStack utama, setelah Text("Tenants")
                     if !filterModel.selectedTenantCategories.isEmpty ||
                        filterModel.minPriceFilter != nil ||
                        filterModel.maxPriceFilter != nil {
@@ -163,21 +168,15 @@ struct Tenant: View {
                                             .clipped()
                                         
                                         VStack(alignment: .leading, spacing: 5) {
-                                            HStack {
-                                                Text(tenant.name)
-                                                    .font(.system(size: 16))
-                                                    .fontWeight(.semibold)
-                                            }
+                                            Text(tenant.name)
+                                                .font(.headline)
+                                                .foregroundColor(.black)
                                             
-                                            Text(tenant.priceRangeString)
-                                                .font(.system(size: 16))
-                                                .fontWeight(.medium)
-                                            
-//                                            Text(tenant.description)
-//                                                .font(.subheadline)
-//                                                .foregroundColor(.gray)
-//                                                .lineLimit(2)
-//                                                .italic()
+                                            Text(tenant.description)
+                                                .font(.subheadline)
+                                                .foregroundColor(.gray)
+                                                .lineLimit(2)
+                                                .italic()
                                             
                                             HStack(spacing: 4) {
                                                 ForEach(tenant.tags, id: \.self) { tag in
@@ -187,24 +186,24 @@ struct Tenant: View {
                                                         .frame(width: 20, height: 20)
                                                 }
                                                 Spacer()
-                                                
+                                                Text(tenant.priceRangeString)
+                                                    .font(.caption)
+                                                    .fontWeight(.bold)
                                             }
                                         }
                                     }
                                     .padding(.horizontal)
                                     .padding(.vertical, 5)
-                                    
-//                                    .padding()
-//                                    .background(Color.white)
-//                                    .cornerRadius(12)
-//                                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
-//                                    .padding(.horizontal)
                                 }
                                 .buttonStyle(PlainButtonStyle())
+                                
+                                if tenant.id != filteredTenants.last?.id {
+                                    Divider()
+                                        .padding(.horizontal)
+                                }
                             }
                         }
                         .padding(.bottom, 20)
-                
                     }
                 }
             }
