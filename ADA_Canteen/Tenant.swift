@@ -128,7 +128,7 @@ struct Tenant: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 24, height: 24)
                             .padding(.leading, 5)
-                            .foregroundColor(.black)
+                            .foregroundColor(.gray)
                     }
                 }
                 .padding()
