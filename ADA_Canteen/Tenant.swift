@@ -350,12 +350,6 @@ struct TenantDetailView: View {
                     
                     // Menu Section
                     VStack {
-//                        Text("Menu")
-//                            .font(.title)
-//                            .fontWeight(.semibold)
-//                            .frame(maxWidth: .infinity, alignment: .leading)
-//                            .padding(.horizontal)
-                        
                         LazyVGrid(
                             columns: [
                                 GridItem(.flexible(), spacing: 16),
