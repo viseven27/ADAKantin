@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    init() {
-        UITabBar.appearance().backgroundColor = UIColor.systemBackground
-        UITabBar.appearance().tintColor = UIColor(Color("aksen"))
-    }
+//    init() {
+//        UITabBar.appearance().backgroundColor = UIColor.systemBackground
+//        UITabBar.appearance().tintColor = UIColor(Color("aksen"))
+//    }
     
     var body: some View {
         TabView {

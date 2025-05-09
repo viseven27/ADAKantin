@@ -57,7 +57,7 @@ struct Food: View {
                         }
                     }
                     .padding(8)
-                    .background(Color(.systemGray6))
+//                    .background(Color(.systemGray6))
                     .cornerRadius(10)
                     
                     Button {

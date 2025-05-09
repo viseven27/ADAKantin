@@ -116,7 +116,7 @@ struct Tenant: View {
                         }
                     }
                     .padding(8)
-                    .background(Color(.systemGray6))
+//                    .background(Color(.systemGray6))
                     .cornerRadius(10)
                     
                     // Filter Button
@@ -266,7 +266,7 @@ struct TenantDetailView: View {
                         }
                     }
                     .padding(8)
-                    .background(Color(.systemGray6))
+//                    .background(Color(.systemGray6))
                     .cornerRadius(10)
                     
                     // Filter Button
