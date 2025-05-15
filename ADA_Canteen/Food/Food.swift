@@ -6,6 +6,7 @@ struct FoodItem: Identifiable {
     let price: Int
     let image: String
     let tags: [String]
+//    Di sini yang mau kita ubah jadi text aja
     let location: String
     let foodDescription: String
     let tenantId: Int
@@ -170,16 +171,16 @@ struct FoodCard: View {
                     .fontWeight(.semibold)
             }.padding(.leading, 6)
             
-            HStack(spacing: 4) {
-                ForEach(item.tags, id: \.self) { tag in
-                    Image(tag)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 20, height: 20)
-                }.padding(.top, -6)
-                Spacer()
-            }
-            .padding(.leading, 6)
+//            HStack(spacing: 4) {
+//                ForEach(item.tags, id: \.self) { tag in
+//                    Image(tag)
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(width: 20, height: 20)
+//                }.padding(.top, -6)
+//                Spacer()
+//            }
+//            .padding(.leading, 6)
         }
         .padding(.bottom, 8)
         .background(Color.white)
@@ -223,18 +224,21 @@ struct FoodDetailView: View {
                                 .font(.system(size: 24))
                                 .foregroundColor(Color(.black))
                         }
-                        HStack(alignment: .center, spacing: 8) {
-                            ForEach(foodItem.tags, id: \.self) { tag in
-                                Image(tag)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 30, height: 30)
-                            }
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.top, 5)
-                        .padding(.bottom, 9)
-                        .padding(.leading, 18)
+                        
+//                        BAGIAN INI, DIUBAH JADI TAG BERUPA TEKS AJA
+                        
+//                        HStack(alignment: .center, spacing: 8) {
+//                            ForEach(foodItem.tags, id: \.self) { tag in
+//                                Image(tag)
+//                                    .resizable()
+//                                    .scaledToFit()
+//                                    .frame(width: 30, height: 30)
+//                            }
+//                        }
+//                        .frame(maxWidth: .infinity, alignment: .leading)
+//                        .padding(.top, 5)
+//                        .padding(.bottom, 9)
+//                        .padding(.leading, 18)
                             
                             Text(foodItem.foodDescription)
                                 .font(.subheadline)

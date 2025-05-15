@@ -1,4 +1,4 @@
-import Cocoa
+//import Cocoa
 import SwiftUI
 
 class AppDelegate: NSObject, NSApplicationDelegate{
@@ -14,8 +14,12 @@ class AppDelegate: NSObject, NSApplicationDelegate{
         if let button = statusItem?.button{
             button.title = "Kantin"
         }
+        
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: "Makan", action: nil, keyEquivalent: ""))
+//        how so it not only displaying the text
+    
         statusItem?.menu = menu
+//        DelegateContentView()
     }
 }
