@@ -50,3 +50,27 @@ extension Set {
         }
     }
 }
+
+public func generateFilterText(selectedCategories: Set<String>, maxPrice: Double) -> String {
+    var parts = [String]()
+    
+    if !selectedCategories.isEmpty {
+        let categoryNames = selectedCategories.map { $0.replacingOccurrences(of: "kategori.", with: "") }
+        let categoriesText = categoryNames.count == 1 ?
+            "kategori \(categoryNames[0])" :
+            "kategori \(categoryNames.joined(separator: ", "))"
+        parts.append(categoriesText)
+
+    }
+    
+    if maxPrice < 50000 {
+        parts.append("harga < Rp\(Int(maxPrice).formattedWithSeparator)")
+    }
+    
+    if parts.isEmpty {
+        return "Menampilkan semua makanan"
+    } else {
+        return "Menampilkan makanan dengan \(parts.joined(separator: " dan "))"
+    }
+}
+

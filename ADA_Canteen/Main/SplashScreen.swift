@@ -31,3 +31,5 @@ struct SplashScreen: View {
 #Preview{
     SplashScreen()
 }
+
+//Splash Screen Untuk iOS

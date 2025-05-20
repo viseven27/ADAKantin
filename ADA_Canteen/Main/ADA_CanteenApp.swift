@@ -1,21 +1,27 @@
 import SwiftUI
 
 @main
-struct ADA_Canteen: App {
-    
-    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    
-    var body: some Scene {
+struct ADA_Canteen: App{
+    var body: some Scene{
         #if os(macOS)
-        WindowGroup {
+        WindowGroup{
             ContentView()
         }
+        MenuBarExtra{
+            MenubarFoodView()
+        } label: {
+            Image(systemName: "fork.knife")
+        }
+        .menuBarExtraStyle(.window)
+        
         Settings{}
+        
         #elseif os(iOS)
-        WindowGroup {
+        WindowGroup{
             SplashScreen()
         }
         #endif
     }
 }
 
+//Entry Point Aplikasi
